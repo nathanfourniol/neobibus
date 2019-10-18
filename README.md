@@ -1,2 +1,0 @@
-# neobibus
-SCRUM English 
