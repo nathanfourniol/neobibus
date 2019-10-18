@@ -1,0 +1,55 @@
+route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+1,1,Fort Montbarey - Hôpital Cavale,,3,,0063a5,FFFFFF
+3,3,Lambézellec - Océanopolis,,3,,836cb0,FFFFFF
+4,4,Port de Commerce-Hôpital Cavale,,3,,bd6aaa,FFFFFF
+5,5,Porte de Gouesnou - Provence,,3,,df771c,FFFFFF
+6,6,Cl.Keraudren - Fort Montbarey,,3,,e7bb08,000000
+7,7,Liberté - Petite Gare,,3,,be5655,FFFFFF
+8,8,Liberté - Plougastel,,3,,008641,FFFFFF
+9,9,Liberté - Petite Gare,,3,,3cb64a,FFFFFF
+10,10,Liberté - Guilers,,3,,f494be,000000
+11,11,Strasbourg - Le Relecq Kerhuon,,3,,cfaf5f,000000
+12,12,Pen-ar-C'hleuz - Guipavas,,3,,5ec3ae,000000
+13,13,Fort Montbarey - Plouzané,,3,,00aeef,FFFFFF
+14,14,Strasbourg - Le Relecq Kerhuon,,3,,aea1ce,000000
+15,15,Plouzané Bourg - Fort Montbarey,,3,,9561a9,FFFFFF
+16,16,Porte de Gouesnou - Gouesnou,,3,,bc813b,FFFFFF
+17,17,Prat Ledan-Ec. Navale-Prat Ledan,,3,,8dc63f,FFFFFF
+28,28,Porte de Gouesnou-ZAC Kergaradec,,3,,00aeef,FFFFFF
+40,40,Navette Pte de Guipavas-Aéroport,,3,,ffcc00,000000
+41,41,Base Navale,,3,,8ba7d7,FFFFFF
+42,42,Gare - CIN - Technopole,,3,,9999CC,FFFFFF
+43,43,Fort Montbarey - Liberté,,3,,0087c8,FFFFFF
+44,44,Base Navale Guilers,,3,,8ba7d7,FFFFFF
+45,45,Base Navale Plougastel relecq,,3,,8ba7d7,FFFFFF
+400,400,Mirabeau - Restic,,3,,F6B894,000000
+410,410,Collège Fontaine Margot - Mesnos,,3,,FFCD4D,000000
+420,420,Strasbourg - Warspite,,3,,F599C1,FFFFFF
+430,430,Mesdoun - Amiral Ronarc'h,,3,,C78EBF,FFFFFF
+440,440,Thibaudet - kerichen Lesven,,3,,F7955A,FFFFFF
+450,450,Melou - Kérichen,,3,,00AC4D,FFFFFF
+460,460,Kerichen - Gascogne,,3,,00A0E3,FFFFFF
+500,500,Scolaire Bohars - Brest,,3,,A8A9AD,FFFFFF
+501,501,Scolaire Bohars - Guilers,,3,,B1B9C5,000000
+510,510,Scolaire Gouesnou - Brest,,3,,FFDF4E,000000
+511,511,Scolaire Gouesnou - Brest,,3,,D3C92F,000000
+512,512,Scolaire Gouesnou - Guipavas,,3,,c80c43,FFFFFF
+513,513,Scolaire Gouesnou - Guipavas,,3,,f9a75d,000000
+514,514,Scolaire Gouesnou - Guipavas,,3,,ca4a4b,FFFFFF
+520,520,Scolaire Guilers-Brest r Gauche,,3,,CA6C17,FFFFFF
+521,521,Scolaire Guilers-Brest r Droite,,3,,8F5500,FFFFFF
+530,530,Scolaire Guipavas - Brest Kerich,,3,,F7941D,FFFFFF
+531,531,Scolaire Guipavas - Brest Iroise,,3,,F36F43,FFFFFF
+532,532,Scolaire Guipavas - Douvez,,3,,e8a733,FFFFFF
+540,540,Scolaire Plougastel,,3,,C6178D,FFFFF
+541,541,Scolaire Plougastel,,3,,F27DB1,FFFFFF
+550,550,Scolaire Plouzané Kerich-Lanroze,,3,,7FC241,FFFFFF
+551,551,Scolaire Plouzané Malman-Lanroze,,3,,E0DF60,000000
+552,552,Scolaire Plouzané - Ronar,,3,,00A65D,FFFFFF
+553,553,Scolaire Plouzané c ar go,,3,,93CECC,000000
+560,560,Scolaire Kerhuon,,3,,6DD0F6,FFFFFF
+561,561,Scolaire Kerhuon - Ste Anne,,3,,8DA3CA,FFFFFF
+562,562,Scolaire Kerhuon interne,,3,,015aaa,FFFFFF
+563,563,Scolaire Diwan,,3,,8da3c9,FFFFFF
+A,A,Tramway Est Ouest,,0,,e2068c,FFFFFF
+C,C,Atelier - Jean Moulin,,6,,ed1c24,FFFFFF
