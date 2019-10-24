@@ -14,33 +14,33 @@
    <string>NeoBibus</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="widget" native="true">
+   <widget class="QTextBrowser" name="textBrowser_display">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>691</width>
-      <height>71</height>
+      <x>400</x>
+      <y>60</y>
+      <width>256</width>
+      <height>192</height>
      </rect>
     </property>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>150</y>
-      <width>160</width>
-      <height>89</height>
+      <x>10</x>
+      <y>90</y>
+      <width>371</width>
+      <height>120</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QComboBox" name="comboBox_line_list">
+      <widget class="QComboBox" name="comboBox_route_list">
        <property name="editable">
         <bool>true</bool>
        </property>
        <property name="currentText">
-        <string>Choose a line </string>
+        <string>Choose a route </string>
        </property>
        <property name="sizeAdjustPolicy">
         <enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum>
@@ -48,12 +48,22 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox_station_list">
+      <widget class="QComboBox" name="comboBox_trip_headsign_list">
        <property name="editable">
         <bool>true</bool>
        </property>
        <property name="currentText">
-        <string>Choose a station</string>
+        <string>Choose a trip headsing</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_stop_list">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentText">
+        <string>Choose a stop</string>
        </property>
        <property name="sizeAdjustPolicy">
         <enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum>
@@ -62,22 +72,27 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_send_request">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
        <property name="text">
         <string>Send Request</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
     </layout>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>120</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
