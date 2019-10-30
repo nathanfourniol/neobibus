@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>NeoBibus</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTextBrowser" name="textBrowser_display">
     <property name="geometry">
@@ -36,6 +39,9 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QComboBox" name="comboBox_route_list">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="editable">
         <bool>true</bool>
        </property>
