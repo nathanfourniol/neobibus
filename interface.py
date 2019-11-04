@@ -3,26 +3,29 @@ import os
 import inspect
 import json
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
+from PyQt5.QtGui import QPainter, QPixmap, QImage
 import requests
 
-#To have the folder where the code is stored
+# To have the folder where the code is stored
 FOLDERPATH = os.path.split(inspect.getfile(inspect.currentframe()))[0] 
-with open(FOLDERPATH +"guidata/routes.json") as f:
+with open(FOLDERPATH + "guidata/routes.json") as f:
     LINES = json.load(f)
 
 STOP = ["Octroi", "Liberte","Saint Martin", "Siam"]
-TRIP_HEADSIGN=["Porte de Gouesnou", "Porte de Guipavas", "Porte de Plouzané"]
+TRIP_HEADSIGN = ["Porte de Gouesnou", "Porte de Guipavas", "Porte de Plouzané"]
 
 class Window(QtWidgets.QMainWindow):
     def __init__(self):
         super(Window, self).__init__() 
         uic.loadUi(FOLDERPATH+"ui/MainWindow.ui", self)
-        #comboBox
+        # comboBox
         self.comboBox_route_list.addItems(LINES)  
         self.comboBox_stop_list.addItems(STOP)
         self.comboBox_trip_headsign_list.addItems(TRIP_HEADSIGN)
-        #Button
+        # Button
         self.pushButton_send_request.clicked.connect(self._send_request)
+        # Pictures      
+        self.drawBackground()
 
     def _send_request(self):
         """Call when Send Request button is clicked
@@ -46,7 +49,16 @@ class Window(QtWidgets.QMainWindow):
         next_arrival = req.text[39:47]
         
         self.display(route_id + "\n"+trip_headsign+"\n"+stop_name+"\n"+next_arrival+"\n")
+    
+    def drawBackground(self):
+        
+        oImage = QImage(FOLDERPATH + "pictures/tram1.jpg")
+        oLayout = QtWidgets.QVBoxLayout()
+        oLayout.addWidget(oImage)
 
+        self.setLayout(oLayout)
+        #tram = QPixmap(FOLDERPATH + "pictures/tram1.jpg")
+        #self.label_background.setPixmap(tram)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
