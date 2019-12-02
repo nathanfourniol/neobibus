@@ -3,7 +3,8 @@ import os
 import inspect
 import json
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
-from PyQt5.QtGui import QPainter, QPixmap, QImage
+from PyQt5.QtGui import QPainter, QPixmap, QImage, QPalette, QBrush, QColor
+from PyQt5.QtCore import Qt
 import requests
 
 # To have the folder where the code is stored
@@ -20,14 +21,14 @@ class Window(QtWidgets.QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         uic.loadUi(FOLDERPATH+"ui/MainWindow.ui", self)
+        # Pictures      
+        self.drawBackground()
         #comboBox
         self.comboBox_route_list.addItems(LINES)
         self.comboBox_stop_list.addItems(STOP_A)
         self.comboBox_trip_headsign_list.addItems(TRIP_HEADSIGN)
         # Button
         self.pushButton_send_request.clicked.connect(self._send_request)
-        # Pictures      
-        self.drawBackground()
 
     def _send_request(self):
         """Call when Send Request button is clicked
@@ -53,12 +54,15 @@ class Window(QtWidgets.QMainWindow):
         self.display(route_id + "\n"+trip_headsign+"\n"+stop_name+"\n"+next_arrival+"\n")
     
     def drawBackground(self):
-        
-        oImage = QImage(FOLDERPATH + "pictures/tram1.jpg")
-        oLayout = QtWidgets.QVBoxLayout()
-        oLayout.addWidget(oImage)
-
-        self.setLayout(oLayout)
+        oImage = QImage(FOLDERPATH + "pictures/tramZOOM.jpg")
+        palette = QPalette()        
+        palette.setBrush(10, QBrush(oImage))  # 10 = Windowrole
+        self.img.setAutoFillBackground(True)
+        self.img.setPalette(palette)
+        self.img.show()
+        palette.setBrush(10, QColor(153, 153, 102))
+        self.setPalette(palette)
+    
         #tram = QPixmap(FOLDERPATH + "pictures/tram1.jpg")
         #self.label_background.setPixmap(tram)
 
