@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>NeoBibus</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTextBrowser" name="textBrowser_display">
     <property name="geometry">
@@ -28,14 +31,17 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>170</y>
       <width>371</width>
-      <height>120</height>
+      <height>136</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QComboBox" name="comboBox_route_list">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -71,6 +77,9 @@
       </widget>
      </item>
      <item>
+      <widget class="QWidget" name="widget" native="true"/>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_send_request">
        <property name="enabled">
         <bool>true</bool>
@@ -93,6 +102,16 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QWidget" name="img" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>371</width>
+      <height>131</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
