@@ -1,60 +1,56 @@
-from qgis.gui import *
+
+
+import webbrowser
+import os
+import folium
+import requests
+import json
+"""
+c= folium.Map(location=[48.4, -4.48],
+)
+
+folium.Marker(
+    location=[45.3288, -121.6625],
+    popup='Mt. Hood Meadows',
+    icon=folium.Icon(icon='cloud')
+).add_to(c)
+c.save('maCarte.html')
+webbrowser.open(os.getcwd()+"/maCarte.html")
+"""
+payload = {'format':'json','stop_name':'malakoff'}
+req = requests.get('https://applications002.brest-metropole.fr/WIPOD01/Transport/REST/getStop',params = payload)
+b=req.text  #jsontext
+
+a = json.loads(b) #to a dictionnarie
+
+print(a[1])
+print(type(a[1]))
+
+"""
+
 import sys
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QUrl
+from PyQt5 import QtWebKit
 
 
-#tutoriel
-#https://enmap-box.readthedocs.io/en/latest/dev_section/programming_tutorials/programming_tutorial2/tutorial_content.html
+class Browser(QWebView):
 
-class MyWnd(QtWidgets.QMainWindow):
-  def __init__(self, layer):
-    QMainWindow.__init__(self)
+    def __init__(self):
+        QWebView.__init__(self)
+        self.loadFinished.connect(self._result_available)
 
-    self.canvas = QgsMapCanvas()
-    self.canvas.setCanvasColor(Qt.white)
+    def _result_available(self, ok):
+        frame = self.page().mainFrame()
+        #print unicode("helloe")
 
-    self.canvas.setExtent(layer.extent())
-    self.canvas.setLayerSet([QgsMapCanvasLayer(layer)])
-
-    self.setCentralWidget(self.canvas)
-
-    actionZoomIn = QAction(QString("Zoom in"), self)
-    actionZoomOut = QAction(QString("Zoom out"), self)
-    actionPan = QAction(QString("Pan"), self)
-
-    actionZoomIn.setCheckable(True)
-    actionZoomOut.setCheckable(True)
-    actionPan.setCheckable(True)
-
-    self.connect(actionZoomIn, SIGNAL("triggered()"), self.zoomIn)
-    self.connect(actionZoomOut, SIGNAL("triggered()"), self.zoomOut)
-    self.connect(actionPan, SIGNAL("triggered()"), self.pan)
-
-    self.toolbar = self.addToolBar("Canvas actions")
-    self.toolbar.addAction(actionZoomIn)
-    self.toolbar.addAction(actionZoomOut)
-    self.toolbar.addAction(actionPan)
-
-    # create the map tools
-    self.toolPan = QgsMapToolPan(self.canvas)
-    self.toolPan.setAction(actionPan)
-    self.toolZoomIn = QgsMapToolZoom(self.canvas, False) # false = in
-    self.toolZoomIn.setAction(actionZoomIn)
-    self.toolZoomOut = QgsMapToolZoom(self.canvas, True) # true = out
-    self.toolZoomOut.setAction(actionZoomOut)
-
-    self.pan()
-
-  def zoomIn(self):
-    self.canvas.setMapTool(self.toolZoomIn)
-
-  def zoomOut(self):
-    self.canvas.setMapTool(self.toolZoomOut)
+        #http://i-miss-erin.blogspot.com/2009/03/write-web-browser-by-python.html
 
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    window = MyWnd()
-    window.show()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    view = Browser()
+    view.load(QUrl('http://www.google.com'))
     app.exec_()
+
+    """

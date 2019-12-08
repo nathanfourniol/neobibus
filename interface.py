@@ -6,9 +6,13 @@ from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QPainter, QPixmap, QImage, QPalette, QBrush, QColor
 from PyQt5.QtCore import Qt
 import requests
+import folium
+import webbrowser
+import os
+
 
 # To have the folder where the code is stored
-FOLDERPATH = os.path.split(inspect.getfile(inspect.currentframe()))[0] 
+FOLDERPATH = os.path.split(inspect.getfile(inspect.currentframe()))[0]
 with open(FOLDERPATH + "guidata/routes.json") as f:
     LINES = json.load(f)
 with open(FOLDERPATH +"guidata/stop_A.json") as f:
@@ -21,7 +25,7 @@ class Window(QtWidgets.QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         uic.loadUi(FOLDERPATH+"ui/MainWindow.ui", self)
-        # Pictures      
+        # Pictures
         self.drawBackground()
         #comboBox
         self.comboBox_route_list.addItems(LINES)
@@ -52,19 +56,47 @@ class Window(QtWidgets.QMainWindow):
         next_arrival = req.text[39:47]
 
         self.display(route_id + "\n"+trip_headsign+"\n"+stop_name+"\n"+next_arrival+"\n")
-    
+        self.web(stop_name)
+
     def drawBackground(self):
         oImage = QImage(FOLDERPATH + "pictures/tramZOOM.jpg")
-        palette = QPalette()        
+        palette = QPalette()
         palette.setBrush(10, QBrush(oImage))  # 10 = Windowrole
         self.img.setAutoFillBackground(True)
         self.img.setPalette(palette)
         self.img.show()
         palette.setBrush(10, QColor(153, 153, 102))
         self.setPalette(palette)
-    
+
         #tram = QPixmap(FOLDERPATH + "pictures/tram1.jpg")
         #self.label_background.setPixmap(tram)
+    def web (self, stop_name):
+        payload = {'format':'json', "stop_name":stop_name}
+        req = requests.get('https://applications002.brest-metropole.fr/WIPOD01/Transport/REST/getSTop',params=payload)
+        dic = json.loads(req.text)
+        lat = dic[1]['Stop_lat']
+        long = dic[1]['Stop_lon']
+
+        lat = float(req.text[35:45])
+        long = float(req.text[65:76])
+        print("latitude_arret",lat)
+        print("longitude_arret",long)
+
+        Brest = [48.4, -4.48]
+        c= folium.Map(location=Brest,
+            zoom_start=13)
+        folium.Marker(
+            location=[lat, long],
+            popup='Mt. Hood Meadows',
+            icon=folium.Icon(icon='cloud'),
+        ).add_to(c)
+
+
+        c.save('maCarte.html')
+        webbrowser.open(os.getcwd()+"/maCarte.html")
+
+
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
