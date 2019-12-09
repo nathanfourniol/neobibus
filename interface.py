@@ -5,7 +5,7 @@ import json
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QPainter, QPixmap, QImage, QPalette, QBrush, QColor
 from PyQt5.QtCore import Qt
-from PyQt45.QtWebKit import QWebView
+#from PyQt5.QtWebKit import QWebView
 
 import requests
 import folium
