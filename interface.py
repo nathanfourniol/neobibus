@@ -5,6 +5,8 @@ import json
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QPainter, QPixmap, QImage, QPalette, QBrush, QColor
 from PyQt5.QtCore import Qt
+from PyQt45.QtWebKit import QWebView
+
 import requests
 import folium
 import webbrowser
@@ -85,6 +87,7 @@ class Window(QtWidgets.QMainWindow):
         Brest = [48.4, -4.48]
         c= folium.Map(location=Brest,
             zoom_start=13)
+
         folium.Marker(
             location=[lat, long],
             popup='Mt. Hood Meadows',
@@ -94,6 +97,9 @@ class Window(QtWidgets.QMainWindow):
 
         c.save('maCarte.html')
         webbrowser.open(os.getcwd()+"/maCarte.html")
+        #info_sups : https://python-visualization.github.io/folium/quickstart.html
+        #http://esaid.free.fr/QtPython/calculatrice/Python_et_Qt.pdf
+        #http://kib2.free.fr/pyqt4/pyqt4.html
 
 
 
