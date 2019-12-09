@@ -23,21 +23,40 @@ class Window(QtWidgets.QMainWindow):
         uic.loadUi(FOLDERPATH+"ui/MainWindow.ui", self)
         # Pictures      
         self.drawBackground()
-        #comboBox
-        self.comboBox_route_list.addItems(LINES)
-        self.comboBox_stop_list.addItems(STOP_A)
-        self.comboBox_trip_headsign_list.addItems(TRIP_HEADSIGN)
+        #comboBox Next stop
+        self.comboBox_route_list.addItems(['Choose a route ...']+LINES)
+        self.comboBox_stop_list.addItems(['Choose a stop ...']+STOP_A)
+        self.comboBox_trip_headsign_list.addItems(['Choose a headsign ...']+\
+                TRIP_HEADSIGN)
+        #ComboBox Store a Stop
+        self.comboBox_route_list_2.addItems(['Choose a route ...']+LINES)
+        self.comboBox_stop_list_2.addItems(['Choose a stop ...']+STOP_A)
+        self.comboBox_trip_headsign_list_2.addItems(['Choose a headsign ...']+\
+                TRIP_HEADSIGN)
         # Button
         self.pushButton_send_request.clicked.connect(self._send_request)
-
+        self.pushButton_store_stop.clicked.connect(self._store_stop)
     def _send_request(self):
-        """Call when Send Request button is clicked
+        """Call when Let's Go  button is clicked
         """
         route_chosen = self.comboBox_route_list.currentText()
         route_id = route_chosen.split(',')[0] #to get the id of the route
         trip_headsign_chosen = self.comboBox_trip_headsign_list.currentText()
         stop_chosen = self.comboBox_stop_list.currentText()
         self.request(route_id, trip_headsign_chosen, stop_chosen)
+
+    def _store_stop(self):
+        """Call when Store Stop button is clicked
+        """
+        struct_stop={"route_id":None, "trip_headsign":None, "stop_chosen":None}
+        #to get the id of the route
+        struct_stop["route_id"]= self.comboBox_route_list_2.currentText().\
+                split(',')[0]
+        struct_stop["trip_headsign"]= self.comboBox_trip_headsign_list_2.\
+                currentText()
+        struct_stop["stop_chosen"]= self.comboBox_stop_list_2.currentText()
+        with open(FOLDERPATH + "beststop.conf", "w") as f:
+            f.write(json.dumps(struct_stop))
 
     def display(self,text):
         """
@@ -60,10 +79,18 @@ class Window(QtWidgets.QMainWindow):
         self.img.setAutoFillBackground(True)
         self.img.setPalette(palette)
         self.img.show()
-        palette.setBrush(10, QColor(153, 153, 102))
+
+        oImage = QImage(FOLDERPATH + "pictures/openBibuscrop.jpg")
+        palette = QPalette()        
+        palette.setBrush(10, QBrush(oImage))  # 10 = Windowrole
+        self.img2.setAutoFillBackground(True)
+        self.img2.setPalette(palette)
+        self.img2.show()
+
+        palette.setBrush(10, QColor(224,224,209)) #background color in RGB style
         self.setPalette(palette)
-    
         #tram = QPixmap(FOLDERPATH + "pictures/tram1.jpg")
+
         #self.label_background.setPixmap(tram)
 
 if __name__ == "__main__":
