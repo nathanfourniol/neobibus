@@ -75,7 +75,7 @@
      <enum>QTabWidget::North</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="tabsClosable">
      <bool>false</bool>
@@ -144,7 +144,7 @@
           </property>
           <property name="geometry">
            <rect>
-            <x>130</x>
+            <x>20</x>
             <y>10</y>
             <width>80</width>
             <height>25</height>
@@ -161,6 +161,34 @@
           </property>
           <property name="text">
            <string>Let's Go</string>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_send_request_user_best_stop">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>159</x>
+            <y>-6</y>
+            <width>101</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>User best stop</string>
           </property>
           <property name="checkable">
            <bool>false</bool>
@@ -263,6 +291,29 @@
      <attribute name="title">
       <string>Bouh !</string>
      </attribute>
+     <widget class="QLabel" name="label_catch_sentence_2">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>60</y>
+        <width>251</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <italic>true</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Tab under development</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="img2" native="true">

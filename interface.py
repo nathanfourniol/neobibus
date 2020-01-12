@@ -32,14 +32,20 @@ class Window(QtWidgets.QMainWindow):
         self.comboBox_stop_list.addItems(['Choose a stop ...']+STOP_A)
         self.comboBox_trip_headsign_list.addItems(['Choose a headsign ...']+\
                 TRIP_HEADSIGN)
+
         #ComboBox Store a Stop
         self.comboBox_route_list_2.addItems(['Choose a route ...']+LINES)
         self.comboBox_stop_list_2.addItems(['Choose a stop ...']+STOP_A)
         self.comboBox_trip_headsign_list_2.addItems(['Choose a headsign ...']+\
                 TRIP_HEADSIGN)
+
         # Button
         self.pushButton_send_request.clicked.connect(self._send_request)
+        self.pushButton_send_request_user_best_stop.clicked.connect(self._send_request_user_best_stop)
         self.pushButton_store_stop.clicked.connect(self._store_stop)
+    
+        #load data
+        self.user_stop = self._load_stop("user_stop.conf")
     def _send_request(self):
         """Call when Let's Go  button is clicked
         """
@@ -48,6 +54,16 @@ class Window(QtWidgets.QMainWindow):
         trip_headsign_chosen = self.comboBox_trip_headsign_list.currentText()
         stop_chosen = self.comboBox_stop_list.currentText()
         self.request(route_id, trip_headsign_chosen, stop_chosen)
+
+    def _send_request_user_best_stop(self):
+        print("REQUEST : ", self.user_stop)
+        pass
+
+    def _load_stop(self, confFile):
+        with open(FOLDERPATH + "user_stop.conf", "r") as f:
+            user_stop = json.load(f)
+            print("LOAD OK : ", user_stop)
+        return user_stop
 
     def _store_stop(self):
         """Call when Store Stop button is clicked
@@ -59,9 +75,11 @@ class Window(QtWidgets.QMainWindow):
         struct_stop["trip_headsign"]= self.comboBox_trip_headsign_list_2.\
                 currentText()
         struct_stop["stop_chosen"]= self.comboBox_stop_list_2.currentText()
-        with open(FOLDERPATH + "beststop.conf", "w") as f:
+        with open(FOLDERPATH + "user_stop.conf", "w") as f:
+            buff=json.dumps(struct_stop, ensure_ascii=False)
             f.write(json.dumps(struct_stop))
-
+            print("STOP STORED : ",buff )
+        self.user_stop = self._load_stop(FOLDERPATH + "user_stop.conf")
     def display(self,text):
         """
         Display text
@@ -97,7 +115,7 @@ class Window(QtWidgets.QMainWindow):
         #tram = QPixmap(FOLDERPATH + "pictures/tram1.jpg")
 
         #self.label_background.setPixmap(tram)
-    def web (self, stop_name):
+    def web(self, stop_name):
         payload = {'format':'json', "stop_name":stop_name}
         req = requests.get('https://applications002.brest-metropole.fr/WIPOD01/Transport/REST/getSTop',params=payload)
         dic = json.loads(req.text)
