@@ -45,7 +45,7 @@ class Window(QtWidgets.QMainWindow):
         self.pushButton_send_request.clicked.connect(self._send_request)
         self.pushButton_send_request_user_best_stop.clicked.connect(self._send_request_user_best_stop)
         self.pushButton_store_stop.clicked.connect(self._store_stop)
-    
+
         #load data
         self.user_stop = self._load_stop("user_stop.conf")
     
