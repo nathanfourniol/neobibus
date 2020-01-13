@@ -5,8 +5,10 @@ import json
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QPainter, QPixmap, QImage, QPalette, QBrush, QColor
 from PyQt5.QtCore import Qt
-from PyQt5.QtWebKitWidgets import QWebView
-
+from PyQt5.QtCore import QUrl
+#from PyQt5.QtWebEngineWidgets import QWebView
+from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView,QWebEnginePage as QWebPage
+from PyQt5.QtWebEngineWidgets import QWebEngineSettings as QWebSettings
 import requests
 import folium
 import webbrowser
@@ -42,6 +44,9 @@ class Window(QtWidgets.QMainWindow):
         # Button
         self.pushButton_send_request.clicked.connect(self._send_request)
         self.pushButton_store_stop.clicked.connect(self._store_stop)
+
+        self.widget_3 = QWebView()
+
     def _send_request(self):
         """Call when Let's Go  button is clicked
         """
@@ -124,9 +129,14 @@ class Window(QtWidgets.QMainWindow):
 
         c.save('maCarte.html')
         webbrowser.open(os.getcwd()+"/maCarte.html")
+        self.widget_3.load(QUrl(os.getcwd()+"/maCarte.html"))
+        #self.widget_3.show()
+        #web_view.load(QUrl('ht"))
+        #web_view.load(QUrl('http://www.www.pythoncentral.io'))
         #info_sups : https://python-visualization.github.io/folium/quickstart.html
-        #http://esaid.free.fr/QtPython/calculatrice/Python_et_Qt.pdf
-        #http://kib2.free.fr/pyqt4/pyqt4.html
+        #http://esaid.free.fr/QtPython/calculatr
+        #https://doc.qt.io/qtforpython/PySide2/QtWebEngineWidgets/QWebEngineView.html
+
 
 
 
