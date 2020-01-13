@@ -23,7 +23,7 @@ b=req.text  #jsontext
 
 a = json.loads(b) #to a dictionnarie
 
-print(a[1])
+print(a[1]['Stop_name'])
 print(type(a[1]))
 
 """

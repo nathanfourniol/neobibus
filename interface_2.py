@@ -5,8 +5,10 @@ import json
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QPainter, QPixmap, QImage, QPalette, QBrush, QColor
 from PyQt5.QtCore import Qt
-#from PyQt5.QtWebKitWidgets import QWebView
-
+from PyQt5.QtCore import QUrl
+#from PyQt5.QtWebEngineWidgets import QWebView
+from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView,QWebEnginePage as QWebPage
+from PyQt5.QtWebEngineWidgets import QWebEngineSettings as QWebSettings
 import requests
 import folium
 import webbrowser
@@ -34,21 +36,17 @@ class Window(QtWidgets.QMainWindow):
         self.comboBox_stop_list.addItems(['Choose a stop ...']+STOP_A)
         self.comboBox_trip_headsign_list.addItems(['Choose a headsign ...']+\
                 TRIP_HEADSIGN)
-
         #ComboBox Store a Stop
         self.comboBox_route_list_2.addItems(['Choose a route ...']+LINES)
         self.comboBox_stop_list_2.addItems(['Choose a stop ...']+STOP_A)
         self.comboBox_trip_headsign_list_2.addItems(['Choose a headsign ...']+\
                 TRIP_HEADSIGN)
-
         # Button
         self.pushButton_send_request.clicked.connect(self._send_request)
-        self.pushButton_send_request_user_best_stop.clicked.connect(self._send_request_user_best_stop)
         self.pushButton_store_stop.clicked.connect(self._store_stop)
-    
-        #load data
-        self.user_stop = self._load_stop("user_stop.conf")
-    
+
+        self.widget_3 = QWebView()
+
     def _send_request(self):
         """Call when Let's Go  button is clicked
         """
@@ -57,24 +55,6 @@ class Window(QtWidgets.QMainWindow):
         trip_headsign_chosen = self.comboBox_trip_headsign_list.currentText()
         stop_chosen = self.comboBox_stop_list.currentText()
         self.request(route_id, trip_headsign_chosen, stop_chosen)
-
-    def _send_request_user_best_stop(self):
-        """Executed when user prest user best stop
-        Launch the request function
-        """
-        self.request(self.user_stop["route_id"], self.user_stop["trip_headsign"], self.user_stop["stop_chosen"])
-
-
-    def _load_stop(self, confFile):
-        """Call by init and after the user save a new preferred stop"""
-        with open(FOLDERPATH + "user_stop.conf", "r") as f:
-            user_stop = json.load(f)
-            print("USER STOP CORRECTLY LOAD : ", user_stop)
-        #For tab "Store your best stop"
-        self.label_current_stop_stored.setText(user_stop["route_id"] + " " + user_stop["trip_headsign"] + " " + user_stop["stop_chosen"])
-        #For tab "Next Stop"
-        self.label_current_stop_stored_2.setText(user_stop["route_id"] + " " + user_stop["trip_headsign"] + " " + user_stop["stop_chosen"])
-        return user_stop
 
     def _store_stop(self):
         """Call when Store Stop button is clicked
@@ -86,12 +66,9 @@ class Window(QtWidgets.QMainWindow):
         struct_stop["trip_headsign"]= self.comboBox_trip_headsign_list_2.\
                 currentText()
         struct_stop["stop_chosen"]= self.comboBox_stop_list_2.currentText()
-        with open(FOLDERPATH + "user_stop.conf", "w") as f:
-            buff=json.dumps(struct_stop, ensure_ascii=False)
+        with open(FOLDERPATH + "beststop.conf", "w") as f:
             f.write(json.dumps(struct_stop))
-            print("STOP STORED : ",buff )
-        self.user_stop = self._load_stop(FOLDERPATH + "user_stop.conf")
-        
+
     def display(self,text):
         """
         Display text
@@ -127,7 +104,7 @@ class Window(QtWidgets.QMainWindow):
         #tram = QPixmap(FOLDERPATH + "pictures/tram1.jpg")
 
         #self.label_background.setPixmap(tram)
-    def web(self, stop_name):
+    def web (self, stop_name):
         payload = {'format':'json', "stop_name":stop_name}
         req = requests.get('https://applications002.brest-metropole.fr/WIPOD01/Transport/REST/getSTop',params=payload)
         dic = json.loads(req.text)
@@ -152,9 +129,14 @@ class Window(QtWidgets.QMainWindow):
 
         c.save('maCarte.html')
         webbrowser.open(os.getcwd()+"/maCarte.html")
+        self.widget_3.load(QUrl(os.getcwd()+"/maCarte.html"))
+        #self.widget_3.show()
+        #web_view.load(QUrl('ht"))
+        #web_view.load(QUrl('http://www.www.pythoncentral.io'))
         #info_sups : https://python-visualization.github.io/folium/quickstart.html
-        #http://esaid.free.fr/QtPython/calculatrice/Python_et_Qt.pdf
-        #http://kib2.free.fr/pyqt4/pyqt4.html
+        #http://esaid.free.fr/QtPython/calculatr
+        #https://doc.qt.io/qtforpython/PySide2/QtWebEngineWidgets/QWebEngineView.html
+
 
 
 
