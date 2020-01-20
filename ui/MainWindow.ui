@@ -58,7 +58,7 @@
       <x>10</x>
       <y>40</y>
       <width>381</width>
-      <height>191</height>
+      <height>271</height>
      </rect>
     </property>
     <property name="tabPosition">
@@ -83,10 +83,42 @@
         <x>0</x>
         <y>20</y>
         <width>371</width>
-        <height>136</height>
+        <height>211</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Currently stored : </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_current_stop_stored_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QComboBox" name="comboBox_route_list">
          <property name="enabled">
@@ -162,8 +194,8 @@
           </property>
           <property name="geometry">
            <rect>
-            <x>159</x>
-            <y>-6</y>
+            <x>250</x>
+            <y>0</y>
             <width>101</width>
             <height>41</height>
            </rect>
@@ -199,10 +231,42 @@
         <x>0</x>
         <y>10</y>
         <width>371</width>
-        <height>136</height>
+        <height>221</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Currently stored : </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_current_stop_stored">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QComboBox" name="comboBox_route_list_2">
          <property name="enabled">

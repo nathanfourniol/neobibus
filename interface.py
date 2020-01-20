@@ -69,8 +69,11 @@ class Window(QtWidgets.QMainWindow):
         self.request(route_id, trip_headsign_chosen, stop_chosen)
 
     def _send_request_user_best_stop(self):
-        print("REQUEST : ", self.user_stop)
-        pass
+        """Executed when user prest user best stop
+        Launch the request function
+        """
+        self.request(self.user_stop["route_id"], self.user_stop["trip_headsign"], self.user_stop["stop_chosen"])
+
 
     def drawBackground(self):
         #oImage = QImage(FOLDERPATH + "pictures/tramZOOM.jpg")
@@ -94,9 +97,14 @@ class Window(QtWidgets.QMainWindow):
         #self.label_background.setPixmap(tram)
 
     def _load_stop(self, confFile):
+        """Call by init and after the user save a new preferred stop"""
         with open(FOLDERPATH + "user_stop.conf", "r") as f:
             user_stop = json.load(f)
-            print("LOAD OK : ", user_stop)
+            print("USER STOP CORRECTLY LOAD : ", user_stop)
+        #For tab "Store your best stop"
+        self.label_current_stop_stored.setText(user_stop["route_id"] + " " + user_stop["trip_headsign"] + " " + user_stop["stop_chosen"])
+        #For tab "Next Stop"
+        self.label_current_stop_stored_2.setText(user_stop["route_id"] + " " + user_stop["trip_headsign"] + " " + user_stop["stop_chosen"])
         return user_stop
 
     def _store_stop(self):
@@ -114,6 +122,7 @@ class Window(QtWidgets.QMainWindow):
             f.write(json.dumps(struct_stop))
             print("STOP STORED : ",buff )
         self.user_stop = self._load_stop(FOLDERPATH + "user_stop.conf")
+
     def display(self,text):
         """
         Display text
