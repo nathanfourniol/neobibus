@@ -6,6 +6,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QPainter, QPixmap, QImage, QPalette, QBrush, QColor
 from PyQt5.QtCore import Qt
 #from PyQt5.QtWebKitWidgets import QWebView
+from PyQt5 import QtWidgets, QtWebEngineWidgets
 
 import requests
 import folium
@@ -48,6 +49,16 @@ class Window(QtWidgets.QMainWindow):
 
         #load data
         self.user_stop = self._load_stop("user_stop.conf")
+
+        #Map
+        self.view = QtWebEngineWidgets.QWebEngineView()
+        self.map_layout.addWidget(self.view, 0)
+        self.map_layout.setContentsMargins(0, 0, 0, 0)
+        #self.map_layout.setLayout(layout)
+
+        self.page = QtWebEngineWidgets.QWebEnginePage()
+
+
     def _send_request(self):
         """Call when Let's Go  button is clicked
         """
@@ -60,6 +71,27 @@ class Window(QtWidgets.QMainWindow):
     def _send_request_user_best_stop(self):
         print("REQUEST : ", self.user_stop)
         pass
+
+    def drawBackground(self):
+        #oImage = QImage(FOLDERPATH + "pictures/tramZOOM.jpg")
+        palette = QPalette()
+        #palette.setBrush(10, QBrush(oImage))  # 10 = Windowrole
+        #self.img.setAutoFillBackground(True)
+        #self.img.setPalette(palette)
+        #self.img.show()
+
+        #oImage = QImage(FOLDERPATH + "pictures/openBibuscrop.jpg")
+        #palette = QPalette()
+        #palette.setBrush(10, QBrush(oImage))  # 10 = Windowrole
+        #self.img2.setAutoFillBackground(True)
+        #self.img2.setPalette(palette)
+        #self.img2.show()
+
+        palette.setBrush(10, QColor(255,128,00)) #background color in RGB style
+        self.setPalette(palette)
+        #tram = QPixmap(FOLDERPATH + "pictures/tram1.jpg")
+
+        #self.label_background.setPixmap(tram)
 
     def _load_stop(self, confFile):
         with open(FOLDERPATH + "user_stop.conf", "r") as f:
@@ -97,35 +129,22 @@ class Window(QtWidgets.QMainWindow):
         self.display(route_id + "\n"+trip_headsign+"\n"+stop_name+"\n"+next_arrival+"\n")
         self.web(stop_name)
 
-    def drawBackground(self):
-        oImage = QImage(FOLDERPATH + "pictures/tramZOOM.jpg")
-        palette = QPalette()
-        palette.setBrush(10, QBrush(oImage))  # 10 = Windowrole
-        self.img.setAutoFillBackground(True)
-        self.img.setPalette(palette)
-        self.img.show()
+    def affiche(self):
+        """affiche le fichier web donné
+        """
+        self.fichierweb =  "file:///" +  os.getcwd()+"/maCarte.html"
+        self.page.setUrl(QtCore.QUrl(self.fichierweb))
+        self.view.setPage(self.page)
+        self.view.show()
 
-        oImage = QImage(FOLDERPATH + "pictures/openBibuscrop.jpg")
-        palette = QPalette()
-        palette.setBrush(10, QBrush(oImage))  # 10 = Windowrole
-        self.img2.setAutoFillBackground(True)
-        self.img2.setPalette(palette)
-        self.img2.show()
-
-        palette.setBrush(10, QColor(224,224,209)) #background color in RGB style
-        self.setPalette(palette)
-        #tram = QPixmap(FOLDERPATH + "pictures/tram1.jpg")
-
-        #self.label_background.setPixmap(tram)
     def web(self, stop_name):
         payload = {'format':'json', "stop_name":stop_name}
         req = requests.get('https://applications002.brest-metropole.fr/WIPOD01/Transport/REST/getSTop',params=payload)
         dic = json.loads(req.text)
         lat = dic[1]['Stop_lat']
         long = dic[1]['Stop_lon']
-
-        lat = float(req.text[35:45])
-        long = float(req.text[65:76])
+        print("latitude_arret",lat)
+        print("longitude_arret",long)
         print("latitude_arret",lat)
         print("longitude_arret",long)
 
@@ -138,13 +157,18 @@ class Window(QtWidgets.QMainWindow):
             popup='Mt. Hood Meadows',
             icon=folium.Icon(icon='cloud'),
         ).add_to(c)
-
-
         c.save('maCarte.html')
-        webbrowser.open(os.getcwd()+"/maCarte.html")
+        #webbrowser.open(os.getcwd()+"/maCarte.html")
+        self.affiche()
+
+
         #info_sups : https://python-visualization.github.io/folium/quickstart.html
         #http://esaid.free.fr/QtPython/calculatrice/Python_et_Qt.pdf
         #http://kib2.free.fr/pyqt4/pyqt4.html
+
+
+
+
 
 
 
