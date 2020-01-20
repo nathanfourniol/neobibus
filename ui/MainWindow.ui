@@ -23,20 +23,10 @@
    <widget class="QTextBrowser" name="textBrowser_display">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>60</y>
-      <width>201</width>
-      <height>131</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="img" native="true">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
+      <x>90</x>
       <y>240</y>
       <width>301</width>
-      <height>291</height>
+      <height>131</height>
      </rect>
     </property>
    </widget>
@@ -380,25 +370,16 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="img2" native="true">
+   <widget class="QWidget" name="verticalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>330</y>
-      <width>641</width>
-      <height>261</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widget_3" native="true">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
+      <x>430</x>
       <y>60</y>
-      <width>281</width>
-      <height>141</height>
+      <width>371</width>
+      <height>301</height>
      </rect>
     </property>
+    <layout class="QVBoxLayout" name="map_layout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
