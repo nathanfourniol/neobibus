@@ -10,7 +10,6 @@ from PyQt5.QtCore import Qt
 import requests
 import folium
 import webbrowser
-import os
 
 
 # To have the folder where the code is stored
