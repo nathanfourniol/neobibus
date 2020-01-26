@@ -3,7 +3,7 @@
 ## Install dependencies:
 
 You need **Python3** to run the app.
-But a few numbrer of additionnal libs are requiered :
+But a few numbers of additionnal libs are required :
 
 * PyQt 5 :
 
@@ -25,3 +25,5 @@ But a few numbrer of additionnal libs are requiered :
 
 This software was develop and tested with **Ubuntu 18.04** and **Python 3.6**
 
+## The project 
+[Link to taiga.io](https://tree.taiga.io/project/tanphi-neo-bibus/team)
