@@ -1,6 +1,7 @@
 import sys
 import os
 import inspect
+import time
 import json
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QPainter, QPixmap, QImage, QPalette, QBrush, QColor
@@ -19,8 +20,6 @@ with open(FOLDERPATH + "guidata/routes.json") as f:
     LINES = json.load(f)
 with open(FOLDERPATH +"guidata/stop_A.json") as f:
     STOP_A = json.load(f)
-
-
 TRIP_HEADSIGN = ["Porte de Gouesnou", "Porte de Guipavas", "Porte de Plouzané"]
 
 class Window(QtWidgets.QMainWindow):
@@ -45,6 +44,7 @@ class Window(QtWidgets.QMainWindow):
         self.pushButton_send_request.clicked.connect(self._send_request)
         self.pushButton_send_request_user_best_stop.clicked.connect(self._send_request_user_best_stop)
         self.pushButton_store_stop.clicked.connect(self._store_stop)
+        self.pushButton_test_api.clicked.connect(self.test_API)
 
         #load data
         self.user_stop = self._load_stop("user_stop.conf")
@@ -75,35 +75,22 @@ class Window(QtWidgets.QMainWindow):
 
 
     def drawBackground(self):
-        #oImage = QImage(FOLDERPATH + "pictures/tramZOOM.jpg")
         palette = QPalette()
-        #palette.setBrush(10, QBrush(oImage))  # 10 = Windowrole
-        #self.img.setAutoFillBackground(True)
-        #self.img.setPalette(palette)
-        #self.img.show()
 
-        #oImage = QImage(FOLDERPATH + "pictures/openBibuscrop.jpg")
-        #palette = QPalette()
-        #palette.setBrush(10, QBrush(oImage))  # 10 = Windowrole
-        #self.img2.setAutoFillBackground(True)
-        #self.img2.setPalette(palette)
-        #self.img2.show()
-
-        palette.setBrush(10, QColor(255,128,00)) #background color in RGB style
+        palette.setBrush(10, QColor(30,123,30)) #background color in RGB style
         self.setPalette(palette)
-        #tram = QPixmap(FOLDERPATH + "pictures/tram1.jpg")
-
-        #self.label_background.setPixmap(tram)
 
     def _load_stop(self, confFile):
         """Call by init and after the user save a new preferred stop"""
-        with open(FOLDERPATH + "user_stop.conf", "r") as f:
+        with open(FOLDERPATH + "guidata/user_stop.conf", "r") as f:
             user_stop = json.load(f)
             print("USER STOP CORRECTLY LOAD : ", user_stop)
+
+        buff = user_stop["route_id"] + " -> " + user_stop["trip_headsign"] + " : " + user_stop["stop_chosen"]
         #For tab "Store your best stop"
-        self.label_current_stop_stored.setText(user_stop["route_id"] + " " + user_stop["trip_headsign"] + " " + user_stop["stop_chosen"])
+        self.label_current_stop_stored.setText(buff)
         #For tab "Next Stop"
-        self.label_current_stop_stored_2.setText(user_stop["route_id"] + " " + user_stop["trip_headsign"] + " " + user_stop["stop_chosen"])
+        self.label_current_stop_stored_2.setText(buff)
         return user_stop
 
     def _store_stop(self):
@@ -131,16 +118,23 @@ class Window(QtWidgets.QMainWindow):
     def request(self, route_id,trip_headsign,stop_name):
         payload = {'format': 'json', 'route_id': route_id, 'trip_headsign': trip_headsign, 'stop_name': stop_name}
         req = requests.get('https://applications002.brest-metropole.fr/WIPOD01/Transport/REST/getRemainingTimes',params=payload)
-        print("REQUEST : ", req.text)
-        next_arrival = req.text[39:47]
+        print("URL_REQUEST :", req.url)
+        print("ANSWER : ", req.text)
+        if len(req.text) < 100 :
+            self.display("API not responding \n Please Retry")
+        else :
+            next_arrival = req.text[39:47]
+            self.display("ROUTE_ID             : "+route_id + 
+                       "\nTRIP_HEADSIGN : "+trip_headsign+
+                       "\nSTOP                      : "+stop_name+
+                       "\nNEXT_ARRIVAL  : "+next_arrival)
 
-        self.display(route_id + "\n"+trip_headsign+"\n"+stop_name+"\n"+next_arrival+"\n")
-        self.web(stop_name)
+            self.web(stop_name)
 
     def affiche(self):
         """affiche le fichier web donné
         """
-        self.fichierweb =  "file:///" +  os.getcwd()+"/maCarte.html"
+        self.fichierweb = "file:///"+  os.getcwd()+"/guidata/maCarte.html"
         self.page.setUrl(QtCore.QUrl(self.fichierweb))
         self.view.setPage(self.page)
         self.view.show()
@@ -150,22 +144,19 @@ class Window(QtWidgets.QMainWindow):
         req = requests.get('https://applications002.brest-metropole.fr/WIPOD01/Transport/REST/getSTop',params=payload)
         dic = json.loads(req.text)
         lat = dic[1]['Stop_lat']
-        long = dic[1]['Stop_lon']
-        print("latitude_arret",lat)
-        print("longitude_arret",long)
-        print("latitude_arret",lat)
-        print("longitude_arret",long)
+        longi = dic[1]['Stop_lon']
+        print("STOP : {}, LAT : {}, LONGI : {}".format(stop_name, lat, longi))
 
         Brest = [48.4, -4.48]
         c= folium.Map(location=Brest,
-            zoom_start=13)
+            zoom_start=12)
 
         folium.Marker(
-            location=[lat, long],
+            location=[lat, longi],
             popup='Mt. Hood Meadows',
             icon=folium.Icon(icon='cloud'),
         ).add_to(c)
-        c.save('maCarte.html')
+        c.save('guidata/maCarte.html')
         #webbrowser.open(os.getcwd()+"/maCarte.html")
         self.affiche()
 
@@ -174,9 +165,22 @@ class Window(QtWidgets.QMainWindow):
         #http://esaid.free.fr/QtPython/calculatrice/Python_et_Qt.pdf
         #http://kib2.free.fr/pyqt4/pyqt4.html
 
-
-
-
+    def test_API(self):
+        """To test the API"""
+        print("Test API ...")
+        t0 = time.time()
+        c = 0
+        for trip_headsign in TRIP_HEADSIGN:
+            for stop in STOP_A:
+                payload = {'format': 'json', 'route_id': "A", 'trip_headsign': trip_headsign, 'stop_name': stop}
+                req = requests.get('https://applications002.brest-metropole.fr/WIPOD01/Transport/REST/getRemainingTimes',params=payload)
+                if len(req.text) < 100 : #API answer 189 characters if it works well
+                    print("API not responding for parameters : {}, {} ".format(trip_headsign, stop))
+                    c += 1
+                else :
+                    print("Params : {}, {} : {}".format(trip_headsign, stop, req.text))
+        duration = time.time() - t0
+        print("END OF TEST : duration : {} s, {} requests failed".format(duration, c))
 
 
 

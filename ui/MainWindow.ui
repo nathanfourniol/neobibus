@@ -23,8 +23,8 @@
    <widget class="QTextBrowser" name="textBrowser_display">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>240</y>
+      <x>40</x>
+      <y>350</y>
       <width>301</width>
       <height>131</height>
      </rect>
@@ -33,7 +33,7 @@
    <widget class="QLabel" name="label_catch_sentence">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>360</x>
       <y>10</y>
       <width>251</width>
       <height>31</height>
@@ -58,16 +58,22 @@
       <x>10</x>
       <y>40</y>
       <width>381</width>
-      <height>271</height>
+      <height>291</height>
      </rect>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::North</enum>
     </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
     <property name="tabsClosable">
+     <bool>false</bool>
+    </property>
+    <property name="movable">
      <bool>false</bool>
     </property>
     <property name="tabBarAutoHide">
@@ -83,7 +89,7 @@
         <x>0</x>
         <y>20</y>
         <width>371</width>
-        <height>211</height>
+        <height>231</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -104,6 +110,7 @@
          </property>
          <property name="font">
           <font>
+           <pointsize>13</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -166,10 +173,10 @@
           </property>
           <property name="geometry">
            <rect>
-            <x>20</x>
-            <y>10</y>
-            <width>80</width>
-            <height>25</height>
+            <x>0</x>
+            <y>0</y>
+            <width>91</width>
+            <height>41</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -194,9 +201,9 @@
           </property>
           <property name="geometry">
            <rect>
-            <x>250</x>
+            <x>210</x>
             <y>0</y>
-            <width>101</width>
+            <width>141</width>
             <height>41</height>
            </rect>
           </property>
@@ -210,7 +217,7 @@
            <enum>Qt::LeftToRight</enum>
           </property>
           <property name="text">
-           <string>User best stop</string>
+           <string>Stored stop</string>
           </property>
           <property name="checkable">
            <bool>false</bool>
@@ -252,6 +259,7 @@
          </property>
          <property name="font">
           <font>
+           <pointsize>13</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -341,46 +349,36 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_3">
-     <attribute name="title">
-      <string>Bouh !</string>
-     </attribute>
-     <widget class="QLabel" name="label_catch_sentence_2">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>60</y>
-        <width>251</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <italic>true</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Tab under development</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </widget>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget_3">
     <property name="geometry">
      <rect>
       <x>430</x>
       <y>60</y>
-      <width>371</width>
-      <height>301</height>
+      <width>531</width>
+      <height>431</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="map_layout"/>
    </widget>
+   <widget class="QPushButton" name="pushButton_test_api">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>10</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Test API</string>
+    </property>
+   </widget>
+   <zorder>textBrowser_display</zorder>
+   <zorder>label_catch_sentence</zorder>
+   <zorder>verticalLayoutWidget_3</zorder>
+   <zorder>tabWidget</zorder>
+   <zorder>pushButton_test_api</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
