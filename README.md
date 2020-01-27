@@ -25,5 +25,5 @@ But a few numbers of additionnal libs are required :
 
 This software was develop and tested with **Ubuntu 18.04** and **Python 3.6**
 
-## The project 
+## The project and the team
 [Link to taiga.io](https://tree.taiga.io/project/tanphi-neo-bibus/team)

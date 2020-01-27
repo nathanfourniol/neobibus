@@ -121,7 +121,7 @@ class Window(QtWidgets.QMainWindow):
         print("URL_REQUEST :", req.url)
         print("ANSWER : ", req.text)
         if len(req.text) < 100 :
-            self.display("API not responding \n Please Retry")
+            self.display(" Something wrong occurs :(\n\n Impossible combination OR\n Next arrival > 20 min OR\n API not responding... \n\n Please Retry Later")
         else :
             next_arrival = req.text[39:47]
             self.display("ROUTE_ID             : "+route_id + 
